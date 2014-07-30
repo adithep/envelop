@@ -2,7 +2,11 @@ DATA = new Meteor.Collection('data');
 
 Meteor.methods({
   rem: function (id) {
-    DATA.update({_s_n: "sno", env_id: id}, {$unset: {env_id: ""}});
+    DATA.update({_s_n: "sno", env_id: id}, {$unset: {env_id: ""}}, {multi: true});
+    DATA.remove({_id: id});
+  },
+  rem_date: function (id) {
+    DATA.remove({date_id: id});
     DATA.remove({_id: id});
   }
 });
@@ -61,7 +65,38 @@ if (Meteor.isClient) {
     },
     val_05: function () {
       return Session.get(this._id + "05");
-    }
+    },
+    total_s: function () {
+      var total_s = 0;
+      DATA.find({_s_n: "sno", date_id: this._id}).forEach(function(doc) {
+        if (doc.amount && (typeof doc.amount === "number")) {
+          total_s = total_s + doc.amount;
+        }
+      });
+      Session.set(this._id + "total_s", total_s);
+      return total_s;
+
+    },
+    total_env: function () {
+      var total_env = 0;
+      DATA.find({_s_n: "env", date_id: this._id}).forEach(function(doc) {
+        var tt = Session.get(doc._id + "total");
+        if (tt && (typeof tt === "number")) {
+          total_env = total_env + tt;
+        }
+      });
+      Session.set(this._id + "total_env", total_env);
+      return total_env;
+    },
+    diff: function () {
+      var total_env = Session.get(this._id + "total_env");
+      var total_s = Session.get(this._id + "total_s");
+
+      if (total_env && total_s && (typeof total_env === "number") && (typeof total_s === "number")) {
+        var diff = total_env - total_s;
+        return diff;
+      }
+    },
   });
 
   Template.sno_tem.helpers({
@@ -80,6 +115,26 @@ if (Meteor.isClient) {
 
     env_sno: function () {
       return DATA.find({_s_n: "sno", env_id: this._id});
+
+    },
+    total_s: function () {
+      var total_s = 0;
+      DATA.find({_s_n: "sno", env_id: this._id}).forEach(function (doc) {
+        if (doc.amount && (typeof doc.amount === "number")) {
+          total_s = total_s + doc.amount;
+        }
+      });
+      Session.set(this._id + "total_s", total_s);
+      return total_s;
+
+    },
+    diff: function () {
+      var total = Session.get(this._id + "total");
+      var total_s = Session.get(this._id + "total_s");
+      if (total && total_s) {
+        var diff = total - total_s;
+        return diff;
+      }
 
     },
     n_1000_total: function () {
@@ -131,6 +186,41 @@ if (Meteor.isClient) {
       if (this.n_05) {
         return this.n_05 * 0.5;
       }
+    },
+    total: function () {
+      var total = 0;
+      if (this.n_1000) {
+        total = total + (this.n_1000 * 1000);
+      }
+      if (this.n_500) {
+        total = total + (this.n_500 * 500);
+      }
+      if (this.n_100) {
+        total = total + (this.n_100 * 100);
+      }
+      if (this.n_50) {
+        total = total + (this.n_50 * 50);
+      }
+      if (this.n_20) {
+        total = total + (this.n_20 * 20);
+      }
+      if (this.n_10) {
+        total = total + (this.n_10 * 10);
+      }
+      if (this.n_5) {
+        total = total + (this.n_5 * 5);
+      }
+      if (this.n_2) {
+        total = total + (this.n_2 * 2);
+      }
+      if (this.n_1) {
+        total = total + (this.n_1 * 1);
+      }
+      if (this.n_05) {
+        total = total + (this.n_05 * 0.5);
+      }
+      Session.set(this._id + "total", total);
+      return total;
     }
   });
 
@@ -291,6 +381,9 @@ if (Meteor.isClient) {
         if (n_50 && Number(n_50)) {
           obj.n_50 = Number(n_50);
         }
+        if (n_20 && Number(n_20)) {
+          obj.n_20 = Number(n_20);
+        }
         if (n_10 && Number(n_10)) {
           obj.n_10 = Number(n_10);
         }
@@ -328,7 +421,7 @@ if (Meteor.isClient) {
     },
 
     'click .del_date': function () {
-      DATA.remove({_id: this._id});
+      Meteor.call('rem_date', this._id);
     }
 
 

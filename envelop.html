@@ -40,7 +40,7 @@
     <input class="add_sno" type="button" value="SNO" />
   </div>
   <div>
-    <input placeholder="ENV From" class="in_env_from" type="text">
+    <input placeholder="ENV From" class="in_env_from" type="text" value="{{val_env_from}}">
     <input class="1000" placeholder="1000" size="5" type="text" value="{{val_1000}}">
     <input class="500" placeholder="500" size="5" type="text" value="{{val_500}}">
     <input class="100" placeholder="100" size="5" type="text" value="{{val_100}}">
@@ -54,9 +54,9 @@
     <input class="add_env" type="button" value="Envelop" />
   </div>
   <hr>
-  <span>total: {{total}}</span>
+  <span>total s: {{total_s}}</span>
+  <span>total env: {{total_env}}</span>
   <span>diff: {{diff}}</span>
-  <span>outstanding: {{outstanding}}</span>
 
 
 </template>
@@ -64,45 +64,47 @@
 <template name="envelop_tem">
   <div class="envelop">
     <span><b>From:</b> {{this.reciever}}</span><br>
-    {{#if this.n_1000}}
-      <span><b>1000:</b> {{this.n_1000}}</span> <span> <b>c:</b>{{n_1000_total}} | </span>
-    {{/if}}
-    {{#if this.n_500}}
-      <span><b>500:</b> {{this.n_500}}</span> <span> <b>c:</b>{{n_500_total}} | </span>
-    {{/if}}
-    {{#if this.n_100}}
-      <span><b>100:</b> {{this.n_100}}</span> <span> <b>c:</b>{{n_100_total}} | </span>
-    {{/if}}
-    {{#if this.n_50}}
-      <span><b>50:</b> {{this.n_50}}</span> <span> <b>c:</b>{{n_50_total}} | </span>
-    {{/if}}
-    {{#if this.n_20}}
-      <span><b>20:</b> {{this.n_20}}</span> <span> <b>c:</b>{{n_20_total}} | </span>
-    {{/if}}
-    {{#if this.n_10}}
-      <span><b>10:</b> {{this.n_10}}</span> <span> <b>c:</b>{{n_10_total}} | </span>
-    {{/if}}
-    {{#if this.n_5}}
-      <span><b>5:</b> {{this.n_5}}</span> <span> <b>c:</b>{{n_50_total}} | </span>
-    {{/if}}
-    {{#if this.n_2}}
-      <span><b>2:</b> {{this.n_2}}</span> <span> <b>c:</b>{{n_2_total}} | </span>
-    {{/if}}
-    {{#if this.n_1}}
-      <span><b>1:</b> {{this.n_1}}</span> <span> <b>c:</b>{{n_1_total}} | </span>
-    {{/if}}
-    {{#if this.n_05}}
-      <span><b>05:</b> {{this.n_05}}</span> <span> <b>c:</b>{{n_05_total}} | </span>
-    {{/if}}
     <div>
-      <span>For</span>
+      <span><b>For</b> | </span>
       {{#each env_sno}}
-        <span> {{this.sno}} | </span>
+        <span>{{this.sno}} | </span>
       {{/each}}
     </div>
+    <div>
+      {{#if this.n_1000}}
+        <span><b>1000:</b> {{this.n_1000}}</span> <span> <b>c:</b>{{n_1000_total}} | </span>
+      {{/if}}
+      {{#if this.n_500}}
+        <span><b>500:</b> {{this.n_500}}</span> <span> <b>c:</b>{{n_500_total}} | </span>
+      {{/if}}
+      {{#if this.n_100}}
+        <span><b>100:</b> {{this.n_100}}</span> <span> <b>c:</b>{{n_100_total}} | </span>
+      {{/if}}
+      {{#if this.n_50}}
+        <span><b>50:</b> {{this.n_50}}</span> <span> <b>c:</b>{{n_50_total}} | </span>
+      {{/if}}
+      {{#if this.n_20}}
+        <span><b>20:</b> {{this.n_20}}</span> <span> <b>c:</b>{{n_20_total}} | </span>
+      {{/if}}
+      {{#if this.n_10}}
+        <span><b>10:</b> {{this.n_10}}</span> <span> <b>c:</b>{{n_10_total}} | </span>
+      {{/if}}
+      {{#if this.n_5}}
+        <span><b>5:</b> {{this.n_5}}</span> <span> <b>c:</b>{{n_5_total}} | </span>
+      {{/if}}
+      {{#if this.n_2}}
+        <span><b>2:</b> {{this.n_2}}</span> <span> <b>c:</b>{{n_2_total}} | </span>
+      {{/if}}
+      {{#if this.n_1}}
+        <span><b>1:</b> {{this.n_1}}</span> <span> <b>c:</b>{{n_1_total}} | </span>
+      {{/if}}
+      {{#if this.n_05}}
+        <span><b>05:</b> {{this.n_05}}</span> <span> <b>c:</b>{{n_05_total}} | </span>
+      {{/if}}
+    </div>
     <span><b>total:</b> {{total}}</span>
+    <span><b>total_s:</b> {{total_s}}</span>
     <span><b>diff:</b> {{diff}}</span>
-    <span><b>outstanding:</b> {{outstanding}}</span>
     <input class="del_env" type="button" value="-" />
   </div>
 
