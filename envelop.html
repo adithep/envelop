@@ -1,0 +1,128 @@
+<head>
+  <title>envelop</title>
+</head>
+
+<body>
+  {{> hello}}
+</body>
+
+<template name="hello">
+  <h1>Envelop</h1>
+  {{#each date}}
+    {{> date_tem}}
+  {{/each}}
+  <br>
+  <br>
+  <input class="add_date" type="button" value="Add" />
+</template>
+
+<template name="date_tem">
+  <span><b>{{this.date}}</b></span>
+  <input class="del_date" type="button" value="-" />
+  <hr>
+  <div class="div_sno">
+    {{#each sno}}
+      {{>sno_tem}}
+    {{/each}}
+  </div>
+  <hr>
+  <div class="div_env">
+    {{#each envelop}}
+      {{>envelop_tem}}
+    {{/each}}
+  </div>
+
+  <hr>
+  <div>
+    <input placeholder="S No." class="in_sno" type="text" value="{{val_sno}}">
+    <input placeholder="Client name" class="in_sno_client" type="text" value="{{val_client}}">
+    <input placeholder="amount" class="in_sno_amt" type="number" value="{{val_amt}}">
+    <input class="add_sno" type="button" value="SNO" />
+  </div>
+  <div>
+    <input placeholder="ENV From" class="in_env_from" type="text">
+    <input class="1000" placeholder="1000" size="5" type="text" value="{{val_1000}}">
+    <input class="500" placeholder="500" size="5" type="text" value="{{val_500}}">
+    <input class="100" placeholder="100" size="5" type="text" value="{{val_100}}">
+    <input class="50" placeholder="50" size="5" type="text" value="{{val_50}}">
+    <input class="20" placeholder="20" size="5" type="text" value="{{val_20}}">
+    <input class="10" placeholder="10" size="5" type="text" value="{{val_10}}">
+    <input class="5" placeholder="5" size="5" type="text" value="{{val_5}}">
+    <input class="2" placeholder="2" size="5" type="text" value="{{val_2}}">
+    <input class="1" placeholder="1" size="5" type="text" value="{{val_1}}">
+    <input class="05" placeholder="0.5" size="5" type="text" value="{{val_05}}">
+    <input class="add_env" type="button" value="Envelop" />
+  </div>
+  <hr>
+  <span>total: {{total}}</span>
+  <span>diff: {{diff}}</span>
+  <span>outstanding: {{outstanding}}</span>
+
+
+</template>
+
+<template name="envelop_tem">
+  <div class="envelop">
+    <span><b>From:</b> {{this.reciever}}</span><br>
+    {{#if this.n_1000}}
+      <span><b>1000:</b> {{this.n_1000}}</span> <span> <b>c:</b>{{n_1000_total}} | </span>
+    {{/if}}
+    {{#if this.n_500}}
+      <span><b>500:</b> {{this.n_500}}</span> <span> <b>c:</b>{{n_500_total}} | </span>
+    {{/if}}
+    {{#if this.n_100}}
+      <span><b>100:</b> {{this.n_100}}</span> <span> <b>c:</b>{{n_100_total}} | </span>
+    {{/if}}
+    {{#if this.n_50}}
+      <span><b>50:</b> {{this.n_50}}</span> <span> <b>c:</b>{{n_50_total}} | </span>
+    {{/if}}
+    {{#if this.n_20}}
+      <span><b>20:</b> {{this.n_20}}</span> <span> <b>c:</b>{{n_20_total}} | </span>
+    {{/if}}
+    {{#if this.n_10}}
+      <span><b>10:</b> {{this.n_10}}</span> <span> <b>c:</b>{{n_10_total}} | </span>
+    {{/if}}
+    {{#if this.n_5}}
+      <span><b>5:</b> {{this.n_5}}</span> <span> <b>c:</b>{{n_50_total}} | </span>
+    {{/if}}
+    {{#if this.n_2}}
+      <span><b>2:</b> {{this.n_2}}</span> <span> <b>c:</b>{{n_2_total}} | </span>
+    {{/if}}
+    {{#if this.n_1}}
+      <span><b>1:</b> {{this.n_1}}</span> <span> <b>c:</b>{{n_1_total}} | </span>
+    {{/if}}
+    {{#if this.n_05}}
+      <span><b>05:</b> {{this.n_05}}</span> <span> <b>c:</b>{{n_05_total}} | </span>
+    {{/if}}
+    <div>
+      <span>For</span>
+      {{#each env_sno}}
+        <span> {{this.sno}} | </span>
+      {{/each}}
+    </div>
+    <span><b>total:</b> {{total}}</span>
+    <span><b>diff:</b> {{diff}}</span>
+    <span><b>outstanding:</b> {{outstanding}}</span>
+    <input class="del_env" type="button" value="-" />
+  </div>
+
+</template>
+
+<template name="sno_tem">
+  <div class="sno">
+    <span class="sno"> {{this.sno}} </span> : <span class="client"> {{this.client}} </span> : <span class="amount"> {{this.amount}} </span>
+    {{>ifa}}
+    <input class="del_sno" type="button" value="-" />
+  </div>
+
+</template>
+
+<template name="checkbox_tem">
+  <input class="check" type="checkbox" name="check" value="{{this._id}}">
+</template>
+
+<template name="reciever_tem">
+  <span>--</span>
+  <span class="reciever"> {{reciever}} </span>
+
+</template>
