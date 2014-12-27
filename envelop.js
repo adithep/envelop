@@ -442,7 +442,7 @@ if (Meteor.isClient) {
 
   Template.checkbox_tem.events({
     'change .check': function (e, t) {
-      Blaze.currentView = t.__view__;
+      Blaze.currentView = Blaze._getCurrentView();
       var parent = Blaze._parentData(1);
       var dat = Session.get(parent._id + "sno_arr");
       if (e.currentTarget.checked) {
